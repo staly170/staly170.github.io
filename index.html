@@ -8,7 +8,524 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles.css">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a25;
+            --bg-card: #15151f;
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --accent-tertiary: #a78bfa;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: rgba(99, 102, 241, 0.15);
+            --border-hover: rgba(99, 102, 241, 0.3);
+            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 60px;
+            padding-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--accent-primary);
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 550px;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--accent-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 20px;
+        }
+
+        .project {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .project-header {
+            padding: 20px 20px 16px;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%);
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .project-icon {
+            font-size: 26px;
+        }
+
+        .project-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--accent-primary);
+            background: rgba(99, 102, 241, 0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .project-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .project-role {
+            font-size: 12px;
+            color: var(--accent-tertiary);
+            font-weight: 500;
+        }
+
+        .project-body {
+            padding: 16px 20px 20px;
+        }
+
+        .project-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .project-highlights {
+            margin-bottom: 16px;
+        }
+
+        .project-highlights-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .highlights-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .highlight-item {
+            display: flex;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .highlight-bullet {
+            color: var(--accent-primary);
+            flex-shrink: 0;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .tech-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--accent-tertiary);
+            background: rgba(139, 92, 246, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .project-achievements {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .achievement {
+            background: rgba(99, 102, 241, 0.08);
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            flex: 1;
+            min-width: 90px;
+        }
+
+        .achievement-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .achievement-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        /* Tech Stack */
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .tech-category {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-category:hover {
+            border-color: var(--border-hover);
+        }
+
+        .tech-category-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tech-category-title span {
+            color: var(--accent-primary);
+        }
+
+        .tech-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tech-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .tech-badge:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .contact-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .contact-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .contact-value {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 26px;
+            }
+
+            .hero {
+                min-height: 60vh;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="grain-overlay"></div>
@@ -18,12 +535,10 @@
     const { useState, useEffect } = React;
 
     const Portfolio = () => {
-        const [activeSection, setActiveSection] = useState('home');
-
         useEffect(() => {
             const observerOptions = {
                 threshold: 0.1,
-                rootMargin: '0px 0px -100px 0px'
+                rootMargin: '0px 0px -50px 0px'
             };
 
             const observer = new IntersectionObserver((entries) => {
@@ -45,218 +560,294 @@
 
         const techStack = {
             'Android Development': ['Java', 'Kotlin', 'Android SDK', 'Jetpack Compose', 'Material Design'],
-            'Architecture & Patterns': ['MVVM', 'Clean Architecture', 'Multi-Module'],
+            'Architecture & Patterns': ['MVVM', 'MVC', 'Clean Architecture', 'Multi-Module', 'Single Activity'],
             'Dependency Injection': ['Dagger Hilt'],
-            'Asynchronous': ['Coroutines', 'Flow', 'LiveData'],
-            'Network': ['Retrofit', 'OkHttp', 'Gson', 'Dio'],
-            'Database': ['Room', 'DataStore', 'SharedPreferences'],
+            'Asynchronous': ['Coroutines', 'Flow', 'LiveData', 'RxJava', 'AsyncTask'],
+            'Network': ['Retrofit', 'OkHttp', 'Volley', 'Gson', 'Dio', 'Loopj Async Http'],
+            'Database': ['Room', 'SQLite', 'DataStore', 'SharedPreferences'],
             'Flutter': ['Dart', 'Riverpod', 'Provider', 'Freezed', 'Go Router', 'WebView Bridge'],
-            'Firebase & Google': ['Firebase Messaging', 'Crashlytics', 'Analytics', 'Play Services', 'Maps', 'Location', 'In-app Billing'],
-            'Security': ['ProGuard', 'R8', 'nProtect', 'Raon TransKey', 'Certificate Management'],
-            'Image Loading': ['Glide', 'Universal Image Loader'],
-            'CI/CD & Tools': ['Gradle', 'Kotlin DSL', 'Product Flavors', 'Git', 'GitHub', 'Jira']
+            'Firebase & Google': ['FCM', 'Crashlytics', 'Analytics', 'Maps', 'Location', 'In-app Billing', 'AdMob'],
+            'Maps & Location': ['Google Maps', 'Naver Maps', 'Daum Maps', 'Geocoder', 'FusedLocationProvider'],
+            'Social Login': ['Kakao SDK', 'Naver SDK', 'Facebook SDK'],
+            'Security': ['ProGuard', 'R8', 'nProtect', 'Raon TransKey', 'AppIron'],
+            'Image Loading': ['Glide', 'Universal Image Loader', 'PhotoView'],
+            'Chat & Messaging': ['XMPP (Smack)', 'GCM', 'FCM', 'FingerPush'],
+            'UI Components': ['ViewPager', 'TabLayout', 'DrawerLayout', 'SlidingMenu', 'ScalableLayout'],
+            'CI/CD & Tools': ['Gradle', 'Kotlin DSL', 'Product Flavors', 'Git', 'GitHub']
         };
 
         const projects = [
             {
                 icon: '🏪',
-                title: '메가점주 웹뷰 하이브리드 앱',
-                period: '2025.09 ~ 2025.12 (3개월)',
+                title: 'ShopOwner Mega - Flutter 크로스플랫폼 앱',
+                period: '2024.09 ~ 2024.12 (4개월)',
                 role: 'Flutter 개발자',
                 description: 'Flutter WebView 기반 하이브리드 아키텍처를 설계하고 JavaScript Bridge를 통한 웹-네이티브 양방향 통신을 구축했습니다.',
                 highlights: [
-                    'Flutter WebView + JavaScript Bridge로 웹-네이티브 양방향 통신 구현',
-                    'Riverpod 2.6.1로 전역 상태 관리 및 Provider 패턴 적용',
-                    'Product Flavors (dev/prod) 환경 분기로 개발/운영 서버 자동 전환',
-                    'Firebase Messaging + FingerPush 이중 푸시 시스템 통합 및 딥링크 라우팅',
-                    'Result<T> sealed class 도입으로 타입 안전한 에러 핸들링',
-                    'Dio + Retrofit으로 RESTful API 통신, Freezed로 불변 데이터 모델 자동 생성'
+                    'Flutter Clean Architecture + MVVM 패턴 적용',
+                    'Riverpod 상태관리 + Go Router 네비게이션',
+                    'WebView + AppBridge 채널 웹-네이티브 양방향 통신',
+                    'Freezed 불변 모델 + Result<T> 패턴 에러 핸들링',
+                    'Product Flavors (dev/prod) 환경 분기',
+                    'Firebase + FingerPush 이중 푸시 시스템'
                 ],
-                tech: ['Flutter 3.x', 'Dart', 'Riverpod 2.6.1', 'WebView', 'JavaScript Bridge', 'Dio', 'Retrofit', 'Freezed', 'json_serializable', 'Go Router', 'Firebase Messaging', 'flutter_dotenv'],
+                tech: ['Flutter 3.4+', 'Dart', 'Riverpod', 'Go Router', 'Dio', 'Retrofit', 'Freezed', 'WebView', 'JS Bridge', 'Firebase'],
                 achievements: [
                     { label: '플랫폼', value: 'iOS + Android' },
-                    { label: '개발 효율', value: '50% 절감' },
+                    { label: '아키텍처', value: 'Clean + MVVM' },
                     { label: '상태', value: '정식 출시' }
                 ]
             },
             {
-                icon: '📱',
-                title: '카드 단말기 연동 자동 장부 앱 (EasyShop AutoBooks)',
+                icon: '💳',
+                title: 'EasyShop AutoBooks - 모바일 POS 결제 시스템',
                 period: '2023.11 ~ 2025.01 (14개월)',
                 role: 'Android 개발자',
-                description: 'KICC 카드 단말기와 실시간 연동이 필요한 가맹점 관리 시스템을 개발하면서, 보안 SDK 다수 통합으로 인한 빌드 시간 급증 문제를 멀티모듈 아키텍처로 해결하고 안정적인 B2B 서비스를 구축했습니다.',
+                description: 'KICC 카드 단말기 연동 가맹점 관리 시스템을 멀티모듈 아키텍처로 설계하여 보안 SDK 격리 및 빌드 최적화를 달성했습니다.',
                 highlights: [
-                    '멀티모듈 아키텍처 (6개 모듈) 설계로 보안 SDK 격리 및 빌드 시간 30% 단축',
-                    'KICC 이지체크 SDK와 TCP/IP 소켓 통신으로 실시간 결제/취소/승인 구현',
-                    'Raon TransKey SDK 4.6.0 E2E 암호화 보안키패드 통합',
-                    '공인인증서 관리 모듈 (RSKSW2 SDK) 구현: 가져오기/인증/거래 서명',
-                    'Product Flavors (dev/product) 환경 분기 및 ProGuard 난독화 규칙 관리',
-                    'AppIron + V3 Mobile Plus + mVaccine 3중 보안 SDK 통합',
-                    'WebView-Native JavaScript Bridge 양방향 하이브리드 통신',
-                    'Signature Pad 가로모드 서명 및 ZXing QR코드 영수증 기능'
+                    '멀티모듈 아키텍처 (6개 모듈) 설계',
+                    'KICC 이지체크 SDK 소켓 통신 결제 구현',
+                    'IC 카드 리더기 연동 모바일 카드 결제',
+                    'Raon TransKey 보안 키보드 + 공인인증서 관리',
+                    'AppIron + nProtect 앱 위변조 방지',
+                    'WebView + JavaScript Bridge 하이브리드 통신'
                 ],
-                tech: ['Kotlin', 'MVVM', 'Multi-Module (6)', 'Room 2.5.1', 'Coroutines', 'Flow', 'Firebase Messaging', 'Retrofit', 'KICC SDK', 'TCP/IP', 'Raon TransKey', 'RSKSW2', 'Signature Pad', 'ZXing', 'ProGuard'],
+                tech: ['Kotlin', 'Java', 'MVVM', 'Multi-Module', 'Retrofit2', 'Coroutines', 'Room', 'KICC SDK', 'TransKey', 'AppIron'],
                 achievements: [
-                    { label: '빌드 최적화', value: '30% 단축' },
+                    { label: '모듈 구조', value: '6개 모듈' },
                     { label: '파트너십', value: 'KICC 공식' },
                     { label: '상태', value: 'B2B 운영 중' }
                 ]
             },
             {
-                icon: '💳',
-                title: 'NestPay 간편결제 통합 금융 플랫폼',
+                icon: '💰',
+                title: 'NestPay - 간편결제 핀테크 플랫폼',
                 period: '2023.01 ~ 2023.06 (6개월)',
-                role: 'Android 개발자 (100% 단독 개발)',
-                description: '오픈뱅킹 API 연동 기반 간편결제 서비스를 기획 단계부터 참여하여 기술 스택을 선정하고, MVVM + Clean Architecture 3계층 구조로 단독 설계 및 개발을 완료했습니다.',
+                role: 'Android 개발자 (1인 개발)',
+                description: '오픈뱅킹 API 연동 간편결제 서비스를 Clean Architecture 3계층 구조로 단독 설계 및 개발했습니다.',
                 highlights: [
-                    'MVVM + Clean Architecture 3계층 구조 설계 (Data-Domain-Presentation)',
-                    'Dagger Hilt 의존성 주입으로 컴파일 타임 검증 및 테스트 용이성 확보',
-                    'JWT Token 기반 인증 구현 (Interceptor 자동 갱신 로직)',
-                    '오픈뱅킹 API 연동: 계좌 등록/잔액 조회/송금/이체 기능',
-                    'nProtect + JNI 키보드 보안 모듈 통합 (네이티브 라이브러리)',
-                    'Navigation Component + Safe Args로 Single Activity 구조',
-                    'Room Database + Paging 3로 결제 내역 효율적 페이징 처리',
-                    'ZXing QR 결제 스캔/생성, Firebase Crashlytics 실시간 모니터링'
+                    'Clean Architecture 3계층 (Data-Domain-Presentation)',
+                    'MVVM + Dagger Hilt 의존성 주입',
+                    '오픈뱅킹 API 연동 (계좌 등록/조회/송금)',
+                    'JWT Token 인증 + Interceptor 자동 갱신',
+                    'Room + Paging 3 결제 내역 페이징',
+                    'ZXing QR 결제 + FCM 푸시 알림'
                 ],
-                tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'Dagger Hilt 2.43.2', 'Retrofit', 'Coroutines', 'Flow', 'Room 2.4.3', 'Paging 3', 'Navigation Component', 'Safe Args', 'nProtect', 'JNI', 'ZXing', 'Firebase Analytics', 'Crashlytics', 'DataStore'],
+                tech: ['Kotlin', 'MVVM', 'Clean Architecture', 'Dagger Hilt', 'Retrofit2', 'Coroutines', 'Room', 'Paging', 'Navigation', 'ZXing'],
                 achievements: [
-                    { label: '개발', value: '100% 단독' },
-                    { label: '개발 기간', value: '6개월' },
+                    { label: '개발', value: '1인 단독' },
+                    { label: '아키텍처', value: 'Clean + MVVM' },
                     { label: '상태', value: '정식 출시' }
                 ]
             },
             {
                 icon: '💑',
-                title: 'Matchkorea 소셜 데이팅 매칭 플랫폼',
+                title: 'Matchkorea - 소셜 데이팅 매칭 플랫폼',
                 period: '2018.11 ~ 2019.03 (5개월)',
-                role: 'Android 개발자 (Full-stack)',
-                description: '심사제 기반 프리미엄 소셜 데이팅 서비스로, XMPP 프로토콜 기반 실시간 채팅 시스템과 GPS 기반 안전 만남 서비스를 구축하여 10만 유저를 확보한 프로젝트입니다.',
+                role: 'Android 개발자',
+                description: 'XMPP 프로토콜 기반 실시간 채팅과 GPS 기반 안전 만남 서비스로 10만 유저를 확보한 프리미엄 소셜 데이팅 서비스입니다.',
                 highlights: [
-                    'XMPP (Smack 4.1.9) 기반 실시간 채팅: 10개 모듈 통합, ConnectionService 백그라운드 연결 관리',
-                    '6종 매칭 알고리즘 UI: MultiSnapRecyclerView + OnSnapListener로 부드러운 탭 전환',
-                    'GPS 기반 안전 만남 서비스: LocationService + Naver Maps API 실시간 위치 공유',
-                    '3종 SNS 소셜 로그인: Kakao SDK v2.20.1, Naver SDK 4.2.0, Facebook SDK 15.0.0',
-                    '심사제 회원가입: 4단계 신규 가입, SMS 본인인증, 프로필 심사',
-                    '캔디 이코노미: In-app Billing, 출석 보상, 포인트 스토어',
-                    'Firebase 15종 푸시 타입 분기: LocalBroadcastManager 앱 내 실시간 알림',
-                    'Retrofit + Gson + AES 암호화 통신 (50개 API), IgawAdbrix + Facebook Analytics 이중 트래킹'
+                    'XMPP (Smack) 실시간 채팅 시스템',
+                    '6종 매칭 알고리즘 + MVP/MVC 아키텍처',
+                    'GPS 기반 Angel Safe Date 안전 만남 서비스',
+                    '3종 SNS 소셜 로그인 (Kakao, Naver, Facebook)',
+                    'Naver Maps 실시간 위치 공유',
+                    'In-app Billing 결제 시스템'
                 ],
-                tech: ['Java', 'XMPP (Smack 4.1.9)', 'Kakao SDK v2', 'Naver SDK', 'Facebook SDK', 'Firebase Messaging', 'Retrofit 2.9.0', 'Gson', 'RxJava 1.3.0', 'Location Services', 'Naver Maps 3.17.0', 'In-app Billing', 'Glide 4.11.0', 'IgawAdbrix', 'MultiDex', 'ProGuard'],
+                tech: ['Java', 'MVP/MVC', 'XMPP (Smack)', 'Retrofit2', 'RxJava', 'Glide', 'Kakao SDK', 'Naver SDK', 'Facebook SDK', 'Naver Maps'],
                 achievements: [
                     { label: '유저 확보', value: '10만 명' },
-                    { label: '메시지 유실률', value: '<1%' },
+                    { label: '채팅 시스템', value: 'XMPP 기반' },
                     { label: '상태', value: '정식 출시' }
                 ]
             },
             {
                 icon: '💬',
-                title: '소셜 데이팅 플랫폼 / Samanda',
+                title: 'Samanda - 칵테일 포인트 기반 매칭 앱',
                 period: '2016.11 ~ 2017.03 (5개월)',
                 role: 'Android 개발자',
-                description: '심사제 기반의 프리미엄 소셜 데이팅 플랫폼으로, 카드 기반 매칭 시스템과 칵테일(포인트) 이코노미를 활용한 소셜 네트워킹 서비스입니다. ',
+                description: '칵테일(포인트)을 활용한 차별화된 매칭 시스템과 다단계 매칭 플로우를 구현한 소셜 데이팅 플랫폼입니다.',
                 highlights: [
-                    'ViewPager + ScalePageTransformer를 활용한 Tinder 스타일 카드 UI 구현',
-                    'GCM을 활용한 1:1 메시징 구현',
-                    'Facebook SDK 소셜 로그인 및 콘텐츠 공유',
-                    'Google Analytics + IgawAdbrix 이중 분석',
-                    'Google Play In-app Billing API 활용 결제 구현',
-                    'MultiDex 64K 메서드 제한 해결'
+                    'ViewPager + Fragment 탭 네비게이션',
+                    '칵테일 포인트 기반 매칭 시스템',
+                    '좋아요 수락/거절/질문/답변 다단계 매칭',
+                    'GCM 푸시 + LocalBroadcastManager 실시간 알림',
+                    'Facebook 소셜 로그인 + 외모 특성 태깅',
+                    'Igaw Adbrix + Adpopcorn 광고/분석'
                 ],
-                tech: ['Java', 'Android SDK', 'Loopj Async Http', 'Glide', 'PhotoView', 'CircleImageView', 'Facebook SDK', 'Google Analytics', 'IgawAdbrix', 'MultiDex', 'ViewPagerIndicator', 'Swipe'],
+                tech: ['Java', 'MVC', 'ViewPager', 'Fragment', 'DrawerLayout', 'Loopj Async Http', 'Glide', 'Facebook SDK', 'GCM', 'Igaw Adbrix'],
                 achievements: [
                     { label: '유저 확보', value: '10만 명' },
+                    { label: '매칭 시스템', value: '포인트 기반' },
+                    { label: '상태', value: 'Play Store 출시' }
+                ]
+            },
+            {
+                icon: '📷',
+                title: 'Citame - Pinterest 스타일 SNS 플랫폼',
+                period: '2013.10 ~ 2014.01 (4개월)',
+                role: 'Android 개발자',
+                description: 'StaggeredGridLayoutManager로 Pinterest 스타일 피드를 구현하고 39개 Fragment를 모듈화한 SNS 플랫폼입니다.',
+                highlights: [
+                    'StaggeredGridLayoutManager 2열 Pinterest 스타일 피드',
+                    'Fragment 기반 Single Activity (39+ Fragments)',
+                    '연령대별 이성 매칭 SeekBar 필터링',
+                    '그룹/모임 카테고리별 커뮤니티',
+                    '스토어 기능 (캐시 충전, 아이템샵, 쿠폰)',
+                    'Google Play In-App Billing 연동'
+                ],
+                tech: ['Java', 'MVC', 'Fragment', 'StaggeredGridLayout', 'DrawerLayout', 'Universal Image Loader', 'Facebook SDK', 'In-app Billing'],
+                achievements: [
+                    { label: '유저 확보', value: '5만 명' },
+                    { label: 'Fragment 수', value: '39개+' },
+                    { label: '상태', value: 'Play Store 출시' }
+                ]
+            },
+            {
+                icon: '🎮',
+                title: 'Isswa - 게이미피케이션 리워드 앱',
+                period: '2012.03 ~ 2012.07 (5개월)',
+                role: 'Android 개발자',
+                description: '미니게임으로 포인트를 획득하여 상품을 구매하는 게이미피케이션 리워드 앱입니다.',
+                highlights: [
+                    'TabActivity 기반 4개 섹션 UI',
+                    '게이미피케이션 미니게임 (숫자 터치/흔들기/퀴즈)',
+                    'SoundPool + MediaPlayer 오디오 시스템',
+                    'ScalableLayout 다양한 해상도 대응',
+                    '이벤트 시스템 (프리미엄/게릴라/응모)',
+                    '포인트/쿠폰 관리 + 쇼핑몰 연동'
+                ],
+                tech: ['Java', 'MVC', 'TabActivity', 'SoundPool', 'MediaPlayer', 'ScalableLayout', 'SQLite', 'Universal Image Loader'],
+                achievements: [
+                    { label: '유저 확보', value: '5만 명' },
+                    { label: '미니게임', value: '3종 구현' },
                     { label: '상태', value: 'Play Store 출시' }
                 ]
             },
             {
                 icon: '🗺️',
-                title: '할인쿠폰 가격비교 및 정보공유 플랫폼 / Wherego',
+                title: 'Wherego - 위치 기반 상권 정보 서비스',
                 period: '2015.06 ~ 2015.10 (5개월)',
-                role: 'Android 개발',
-                description: '지역 상권 정보와 할인쿠폰을 제공하는 위치 기반 O2O 플랫폼입니다.',
+                role: 'Android 개발자',
+                description: 'Google Maps API로 상권/매장 정보를 시각화하고 줌 레벨별 마커를 동적 전환하는 위치 기반 서비스입니다.',
                 highlights: [
-                    'Google Maps SDK를 활용한 인터랙티브 지도 구현, 상권별 커스텀 마커 및 클러스터링 기능 개발',
-                    'Geocoder를 활용한 주소 변환, 반경 내 번화가/쇼핑센터/지하상가/테마거리 4종 상권 탐색 및 필터링',
-                    'Google Identity API 사용자 인증 간소화',
-                    'GCM 푸시 알림으로 사용자 참여도 향상',
-                    'Glide 기반 이미지 캐싱'
+                    'Google Maps API 상권/매장 지도 시스템',
+                    '줌 레벨별 마커 동적 전환 (상권 ↔ 매장)',
+                    'OnCameraChangeListener 실시간 영역 데이터 조회',
+                    '매장 등급별 차별화 마커 (일반/포스팅/프리미엄)',
+                    'Geocoder 역지오코딩 주소 변환',
+                    'Volley RESTful API 통신'
                 ],
-                tech: ['Java', 'Android SDK', 'Google Maps', 'Location Services', 'GCM(Google Cloud Messaging)', 'Google Identity', 'Google Ads', 'Glide', 'Facebook Shimmer'],
+                tech: ['Java', 'MVC', 'Fragment', 'Google Maps', 'Location Services', 'Geocoder', 'Volley', 'Glide', 'GCM', 'AdMob'],
                 achievements: [
+                    { label: '상권 유형', value: '4종 지원' },
+                    { label: '지도 기능', value: '동적 마커' },
                     { label: '상태', value: 'Play Store 출시' }
                 ]
             },
             {
-                icon: '🎯',
-                title: '소셜 데이팅 플랫폼 / Citame',
-                period: '2013.10 ~ 2014.01 (4개월)',
-                role: 'Android 개발 (Full-stack)',
-                description: '실시간 피드 기반 소셜 네트워킹과 1:1 채팅을 결합한 데이팅 플랫폼입니다.',
+                icon: '🎁',
+                title: 'WanpanStory - 카카오 연동 O2O 쿠폰 서비스',
+                period: '2015.11 ~ 2016.03 (5개월)',
+                role: 'Android 개발자',
+                description: '카카오 SDK로 카카오톡 친구에게 쿠폰과 복주머니를 선물하는 O2O 서비스 앱입니다.',
                 highlights: [
-                    'BroadcastReceiver 기반 실시간 메시지 수신, 커스텀 이모티콘 시스템',
-                    'Universal Image Loader를 활용한 이미지 로딩 및 캐싱, 메모리 최적화',
-                    'Google Play In-app Billing API를 통한 아이템샵, 캐시 구매, 쿠폰 관리 시스템 개발',
-                    'Facebook SDK를 활용한 소셜 로그인, 프로필 공유, 친구 초대 기능 구현'
+                    'WebView 기반 하이브리드 앱 + JavaScript Bridge',
+                    'Kakao SDK 연동 (로그인/친구목록/메시지)',
+                    '카카오톡 메시지 API 쿠폰/복주머니 선물 발송',
+                    '4가지 선물 유형 (쿠폰/복주머니/브랜드쿠폰/브랜드복주머니)',
+                    '카카오페이 결제 연동 + Custom URL Scheme',
+                    'Daum Map SDK 주변 매장 지도'
                 ],
-                tech: ['Java', 'Android SDK', 'ScalableLayout', 'Location Services', 'Apache HttpMime', 'Universal Image Loader', 'Facebook SDK', 'Google Play In-app Billing'],
+                tech: ['Java', 'Hybrid App', 'WebView', 'JavaScript Interface', 'Kakao SDK', 'Daum Maps', 'Volley', 'Glide', 'GCM'],
                 achievements: [
-                    { label: '유저 확보', value: '5만 명' },
+                    { label: '선물 유형', value: '4종 지원' },
+                    { label: '카카오 연동', value: '메시지 API' },
                     { label: '상태', value: 'Play Store 출시' }
                 ]
             },
             {
-                icon: '📱',
-                title: '광고 컨텐츠 리워드 플랫폼 / Isswa',
-                period: '2012.03 ~ 2012.07 (5개월)',
-                role: 'Android 개발 (Full-stack)',
-                description: '광고를 시청하고 게임을 플레이하여 포인트를 적립한 후, 실제 상품으로 교환할 수 있는 리워드 플랫폼입니다.',
+                icon: '🐾',
+                title: 'PetMe - 반려동물 종합 케어 커뮤니티',
+                period: '2014.05 ~ 2014.09 (5개월)',
+                role: 'Android 개발자',
+                description: 'StaggeredGridView Pinterest 스타일 피드와 SlidingMenu를 결합하여 26개 Fragment를 모듈화한 반려동물 커뮤니티입니다.',
                 highlights: [
-                    'TabActivity 기반 UI 설계 및 개발',
-                    '터치 게임, 흔들기(Shake) 미니게임 구현',
-                    'httpmime 멀티파트 HTTP 통신으로 광고 콘텐츠 전송',
-                    'Universal Image Loader 효율적 이미지 캐싱',
-                    'GCM을 활용한 실시간 이벤트 알림'
+                    'StaggeredGridView Pinterest 스타일 피드',
+                    'Pull-to-Refresh + 무한 스크롤 페이징',
+                    'SlidingMenu + Fragment 기반 Single Activity (26 Fragments)',
+                    '반려동물 실종 신고/검색 기능',
+                    '캘린더 기반 케어 일정 관리',
+                    '주변 동물병원/펫샵 지도 검색'
                 ],
-                tech: ['Java', 'Android SDK', 'Apache HttpMime', 'Universal Image Loader', 'GCM(Google Cloud Messaging)', 'AsyncTask'],
+                tech: ['Java', 'MVC', 'SlidingMenu', 'Fragment', 'StaggeredGridView', 'PullToRefresh', 'Universal Image Loader', 'In-app Billing'],
                 achievements: [
-                    { label: '유저 확보', value: '5만 명' },
+                    { label: 'Fragment 수', value: '26개' },
+                    { label: 'UI 패턴', value: 'Pinterest 스타일' },
                     { label: '상태', value: 'Play Store 출시' }
                 ]
-            }
-        ];
-
-        const timeline = [
+            },
             {
-                year: '2024 - 2025',
-                projects: [
-                    { title: '🏪 메가점주 하이브리드 앱', desc: 'Flutter WebView 기반 크로스 플랫폼 구축' }
+                icon: '🐕',
+                title: 'Onaju - 반려동물 종합 케어 플랫폼',
+                period: '2016.05 ~ 2016.09 (5개월)',
+                role: 'Android 개발자',
+                description: '펫월드/펫스타 모드와 Daum Map SDK 동물병원 위치 시각화를 제공하는 반려동물 케어 플랫폼입니다.',
+                highlights: [
+                    'DrawerLayout Navigation Drawer 메뉴 구조',
+                    '펫월드/펫스타 모드 전환 애니메이션',
+                    '펫월드 5개 카테고리 (실종신고/분양/교배/Q&A/나눔)',
+                    'Daum Map SDK 동물병원 위치 시각화',
+                    'ViewPager + TabLayout 병원 상세 탭',
+                    'YouTube Player API 동영상 재생'
+                ],
+                tech: ['Java', 'MVC', 'Fragment', 'ViewPager', 'TabLayout', 'DrawerLayout', 'Daum Maps', 'Glide', 'Facebook SDK', 'YouTube API'],
+                achievements: [
+                    { label: '커스텀 어댑터', value: '23개' },
+                    { label: '지도 연동', value: 'Daum Maps' },
+                    { label: '상태', value: 'Play Store 출시' }
                 ]
             },
             {
-                year: '2023 - 2025',
-                projects: [
-                    { title: '📱 EasyShop AutoBooks', desc: 'KICC 카드 단말기 연동 B2B 서비스' },
-                    { title: '💳 NestPay 간편결제', desc: '오픈뱅킹 금융 플랫폼 단독 개발' }
+                icon: '📸',
+                title: 'MissionX - 사진 미션 콘테스트 플랫폼',
+                period: '2013.01 ~ 2013.05 (5개월)',
+                role: 'Android 개발자',
+                description: '미션 상태와 투표 상태에 따라 실시간/최종 랭킹을 동적 분기하는 사진 미션 콘테스트 플랫폼입니다.',
+                highlights: [
+                    '하단 네비게이션 5탭 구조 (홈/미션/카메라/랭킹/설정)',
+                    'WebView 하이브리드 사진 목록 + URL 파라미터 브릿지',
+                    '3가지 정렬 옵션 (추천순/조회순/최신순)',
+                    '미션 상태별 랭킹 화면 분기 (실시간/최종)',
+                    'Thread + Handler 비동기 HTTP 통신',
+                    'ConnectivityManager 네트워크 상태 확인'
+                ],
+                tech: ['Java', 'MVC', 'Activity', 'TabActivity', 'WebView', 'ListView', 'Thread', 'Handler', 'JSON Parsing', 'ScalableLayout'],
+                achievements: [
+                    { label: '정렬 옵션', value: '3종 지원' },
+                    { label: '랭킹 시스템', value: '실시간/최종' },
+                    { label: '상태', value: 'Play Store 출시' }
                 ]
             },
             {
-                year: '2018 - 2019',
-                projects: [
-                    { title: '💑 Matchkorea', desc: '소셜 데이팅 플랫폼 (10만 유저)' }
-                ]
-            },
-            {
-                year: '2014 - 2015',
-                projects: [
-                    { title: '🗺️ 위치 기반 여행 가이드', desc: 'Google Maps/Location API 연동' },
-                    { title: '💬 소셜 커뮤니티 플랫폼', desc: '비동기 네트워크 통신 구현' }
-                ]
-            },
-            {
-                year: '2012 - 2013',
-                projects: [
-                    { title: '🎯 위치 기반 소셜 플랫폼', desc: 'GPS 실시간 위치 추적' },
-                    { title: '📱 Isswa', desc: '광고 네트워크 통합 (5만 유저)' }
+                icon: '📧',
+                title: 'Contact - 기업 소개 및 광고 문의 앱',
+                period: '2016.08 ~ 2016.10 (3개월)',
+                role: 'Android 개발자',
+                description: 'JavaMail API Gmail SMTP 이메일 발송과 Daum Map SDK 회사 위치 시각화를 구현한 기업 소개 앱입니다.',
+                highlights: [
+                    'Daum Map SDK 회사 위치 시각화 + 커스텀 마커',
+                    '8가지 광고 유형 다중 선택 CheckedTextView',
+                    'DatePickerDialog 광고 집행 기간 선택',
+                    'TextWatcher 천 단위 콤마 자동 포맷팅',
+                    'JavaMail API Gmail SMTP 이메일 발송',
+                    'Jsoup HTML 파싱 앱 버전 체크'
+                ],
+                tech: ['Java', 'MVC', 'Activity', 'Daum Maps', 'JavaMail API', 'Jsoup', 'ViewPager', 'PhotoView', 'Calligraphy'],
+                achievements: [
+                    { label: '광고 유형', value: '8종 지원' },
+                    { label: '이메일 발송', value: 'Gmail SMTP' },
+                    { label: '상태', value: 'Play Store 출시' }
                 ]
             }
         ];
@@ -269,9 +860,8 @@
                             <div className="logo">&lt;DEVELOPER /&gt;</div>
                             <ul className="nav-links">
                                 <li><a className="nav-link" onClick={() => scrollToSection('home')}>Home</a></li>
-                                <li><a className="nav-link" onClick={() => scrollToSection('tech')}>Tech</a></li>
                                 <li><a className="nav-link" onClick={() => scrollToSection('projects')}>Projects</a></li>
-                                <li><a className="nav-link" onClick={() => scrollToSection('timeline')}>Timeline</a></li>
+                                <li><a className="nav-link" onClick={() => scrollToSection('tech')}>Tech</a></li>
                                 <li><a className="nav-link" onClick={() => scrollToSection('contact')}>Contact</a></li>
                             </ul>
                         </div>
@@ -285,21 +875,19 @@
                             <div className="hero-label">Mobile Application Developer</div>
                             <h1 className="hero-title">Android & Flutter<br/>Full-Stack Engineer</h1>
                             <p className="hero-subtitle">
-                                10년 이상의 모바일 앱 개발 경험을 바탕으로<br/>
-                                O2O 서비스 및 금융 시스템까지 다양한 도메인의<br/>
-                                프로덕션 서비스를 구축하고 운영했습니다
+                                10년 이상의 모바일 앱 개발 경험을 바탕으로 소셜 플랫폼, O2O 서비스, 금융 시스템까지 다양한 도메인의 프로덕션 서비스를 구축하고 운영했습니다.
                             </p>
                             <div className="hero-stats">
                                 <div className="stat">
-                                    <span className="stat-number">10+</span>
+                                    <span className="stat-number">13+</span>
                                     <span className="stat-label">Years</span>
                                 </div>
                                 <div className="stat">
-                                    <span className="stat-number">15+</span>
+                                    <span className="stat-number">13+</span>
                                     <span className="stat-label">Apps</span>
                                 </div>
                                 <div className="stat">
-                                    <span className="stat-number">100K+</span>
+                                    <span className="stat-number">300K+</span>
                                     <span className="stat-label">Users</span>
                                 </div>
                             </div>
@@ -313,12 +901,12 @@
                             <div className="section-label">Portfolio</div>
                             <h2 className="section-title">주요 프로젝트</h2>
                             <p className="section-desc">
-                                실제 프로덕션 환경에서 구축하고 운영한 주요 프로젝트들입니다
+                                실제 프로덕션 환경에서 구축하고 운영한 프로젝트들입니다
                             </p>
                         </div>
                         <div className="projects-grid">
                             {projects.map((project, idx) => (
-                                <div key={idx} className="project fade-in" style={{animationDelay: `${idx * 0.1}s`}}>
+                                <div key={idx} className="project fade-in" style={{animationDelay: `${idx * 0.05}s`}}>
                                     <div className="project-header">
                                         <div className="project-meta">
                                             <div className="project-icon">{project.icon}</div>
@@ -329,7 +917,6 @@
                                     </div>
                                     <div className="project-body">
                                         <p className="project-description">{project.description}</p>
-
                                         <div className="project-highlights">
                                             <div className="project-highlights-title">주요 구현 사항</div>
                                             <div className="highlights-list">
@@ -341,13 +928,11 @@
                                                 ))}
                                             </div>
                                         </div>
-
                                         <div className="project-tech">
                                             {project.tech.map((tech, i) => (
                                                 <span key={i} className="tech-tag">{tech}</span>
                                             ))}
                                         </div>
-
                                         <div className="project-achievements">
                                             {project.achievements.map((achievement, i) => (
                                                 <div key={i} className="achievement">
@@ -374,40 +959,13 @@
                         </div>
                         <div className="tech-categories">
                             {Object.entries(techStack).map(([category, items], idx) => (
-                                <div key={idx} className="tech-category fade-in" style={{animationDelay: `${idx * 0.1}s`}}>
+                                <div key={idx} className="tech-category fade-in" style={{animationDelay: `${idx * 0.05}s`}}>
                                     <div className="tech-category-title">
                                         <span>▸</span> {category}
                                     </div>
                                     <div className="tech-items">
                                         {items.map((item, i) => (
                                             <span key={i} className="tech-badge">{item}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                <section id="timeline">
-                    <div className="container">
-                        <div className="section-header fade-in">
-                            <div className="section-label">Career Path</div>
-                            <h2 className="section-title">경력 타임라인</h2>
-                            <p className="section-desc">
-                                연도별 프로젝트 경력을 한눈에 확인할 수 있습니다
-                            </p>
-                        </div>
-                        <div className="timeline">
-                            {timeline.map((item, idx) => (
-                                <div key={idx} className="timeline-item fade-in" style={{animationDelay: `${idx * 0.15}s`}}>
-                                    <div className="timeline-year">{item.year}</div>
-                                    <div className="timeline-projects">
-                                        {item.projects.map((project, i) => (
-                                            <div key={i} className="timeline-project">
-                                                <div className="timeline-project-title">{project.title}</div>
-                                                <div className="timeline-project-desc">{project.desc}</div>
-                                            </div>
                                         ))}
                                     </div>
                                 </div>
@@ -447,7 +1005,7 @@
 
                 <footer>
                     <div className="container">
-                        <p className="footer-text">© 2026 Mobile Developer Portfolio. All rights reserved.</p>
+                        <p className="footer-text">© 2025 Mobile Developer Portfolio. All rights reserved.</p>
                     </div>
                 </footer>
             </>
