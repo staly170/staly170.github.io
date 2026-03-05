@@ -470,7 +470,7 @@
             width: 64px;
             height: 64px;
             border-radius: 16px;
-            object-fit: contain;
+            object-fit: cover;
             display: block;
             margin: 0 auto;
         }
@@ -759,28 +759,28 @@
 
         /* ===== KEYFRAMES ===== */
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(50px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes fadeDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes fadeLeft {
-            from { opacity: 0; transform: translateX(40px); }
+            from { opacity: 0; transform: translateX(60px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
         @keyframes fadeRight {
-            from { opacity: 0; transform: translateX(-40px); }
+            from { opacity: 0; transform: translateX(-60px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
         @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: scale(0.85) rotate(-2deg); }
+            to { opacity: 1; transform: scale(1) rotate(0deg); }
         }
 
         @keyframes shimmer {
@@ -789,18 +789,18 @@
         }
 
         @keyframes goldGlow {
-            0%, 100% { text-shadow: 0 0 20px rgba(201, 169, 110, 0.1); }
-            50% { text-shadow: 0 0 40px rgba(201, 169, 110, 0.3), 0 0 80px rgba(201, 169, 110, 0.1); }
+            0%, 100% { text-shadow: 0 0 20px rgba(201, 169, 110, 0.15); }
+            50% { text-shadow: 0 0 50px rgba(201, 169, 110, 0.5), 0 0 100px rgba(201, 169, 110, 0.2); }
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-14px); }
         }
 
         @keyframes borderGlow {
-            0%, 100% { border-color: rgba(201, 169, 110, 0.08); }
-            50% { border-color: rgba(201, 169, 110, 0.2); }
+            0%, 100% { border-color: rgba(201, 169, 110, 0.08); box-shadow: 0 0 0 rgba(201, 169, 110, 0); }
+            50% { border-color: rgba(201, 169, 110, 0.35); box-shadow: 0 0 20px rgba(201, 169, 110, 0.08); }
         }
 
         @keyframes lineExpand {
@@ -810,7 +810,7 @@
 
         @keyframes dotScale {
             0%, 100% { transform: rotate(45deg) scale(1); opacity: 0.3; }
-            50% { transform: rotate(45deg) scale(1.4); opacity: 0.6; }
+            50% { transform: rotate(45deg) scale(1.8); opacity: 0.9; }
         }
 
         @keyframes typewriter {
@@ -840,8 +840,8 @@
         }
 
         @keyframes diamondFloat {
-            0%, 100% { transform: rotate(45deg) translateY(0); }
-            50% { transform: rotate(45deg) translateY(-4px); }
+            0%, 100% { transform: rotate(45deg) translateY(0) scale(1); opacity: 0.6; }
+            50% { transform: rotate(45deg) translateY(-8px) scale(1.2); opacity: 1; }
         }
 
         @keyframes gradientFlow {
@@ -875,14 +875,14 @@
         /* Scroll fade-in with stagger */
         .fade-in {
             opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateY(60px) scale(0.97);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .fade-in.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         /* ===== NAV ANIMATIONS ===== */
@@ -895,8 +895,9 @@
         }
 
         .logo:hover {
-            text-shadow: 0 0 20px rgba(201, 169, 110, 0.3);
-            letter-spacing: 3px;
+            text-shadow: 0 0 30px rgba(201, 169, 110, 0.5), 0 0 60px rgba(201, 169, 110, 0.15);
+            letter-spacing: 4px;
+            transform: scale(1.02);
         }
 
         .nav-link {
@@ -951,11 +952,11 @@
         }
 
         .h-stat:hover {
-            transform: translateY(-6px);
+            transform: translateY(-10px) scale(1.05);
         }
 
         .h-stat:hover .h-stat-value {
-            text-shadow: 0 0 40px rgba(201, 169, 110, 0.5), 0 0 80px rgba(201, 169, 110, 0.2);
+            text-shadow: 0 0 50px rgba(201, 169, 110, 0.6), 0 0 100px rgba(201, 169, 110, 0.3);
         }
 
         .h-stat::before {
@@ -976,15 +977,15 @@
         }
 
         .hero-ornament-ring:nth-child(1) {
-            animation: ringRotate 30s linear infinite, borderGlow 4s ease-in-out infinite;
+            animation: ringRotate 20s linear infinite, borderGlow 3s ease-in-out infinite;
         }
 
         .hero-ornament-ring:nth-child(2) {
-            animation: ringRotate 25s linear infinite reverse, borderGlow 4s ease-in-out 1s infinite;
+            animation: ringRotate 16s linear infinite reverse, borderGlow 3s ease-in-out 0.8s infinite;
         }
 
         .hero-ornament-ring:nth-child(3) {
-            animation: ringRotate 20s linear infinite, borderGlow 4s ease-in-out 2s infinite;
+            animation: ringRotate 12s linear infinite, borderGlow 3s ease-in-out 1.6s infinite;
         }
 
         .hero-ornament-dot {
@@ -1064,11 +1065,12 @@
 
         .project-card:hover::before {
             opacity: 1;
-            box-shadow: 0 0 20px rgba(201, 169, 110, 0.1);
+            box-shadow: 0 0 30px rgba(201, 169, 110, 0.15);
         }
 
         .project-card:hover {
-            box-shadow: 0 16px 60px rgba(201, 169, 110, 0.06), 0 0 0 1px rgba(201, 169, 110, 0.08);
+            transform: translateX(8px) scale(1.01);
+            box-shadow: 0 20px 80px rgba(201, 169, 110, 0.1), 0 0 0 1px rgba(201, 169, 110, 0.15);
         }
 
         /* Icon hover glow */
@@ -1077,8 +1079,8 @@
         }
 
         .project-card:hover .project-card-icon {
-            transform: scale(1.08);
-            filter: drop-shadow(0 0 12px rgba(201, 169, 110, 0.2));
+            transform: scale(1.15) rotate(3deg);
+            filter: drop-shadow(0 0 20px rgba(201, 169, 110, 0.35));
         }
 
         /* Title shimmer on hover */
@@ -1130,7 +1132,8 @@
         }
 
         .project-card:hover .project-card-metric-value {
-            text-shadow: 0 0 16px rgba(201, 169, 110, 0.3);
+            text-shadow: 0 0 24px rgba(201, 169, 110, 0.5);
+            transform: scale(1.05);
         }
 
         /* Arrow reveal */
@@ -1140,9 +1143,10 @@
 
         .project-card:hover .project-card-arrow {
             opacity: 1;
-            right: 28px;
+            right: 24px;
             color: var(--gold);
-            text-shadow: 0 0 12px rgba(201, 169, 110, 0.3);
+            text-shadow: 0 0 20px rgba(201, 169, 110, 0.5);
+            transform: translateX(4px);
         }
 
         /* ===== SKILL CARD ANIMATIONS ===== */
@@ -1156,13 +1160,13 @@
 
         .skill-card:hover {
             border-color: var(--border-hover);
-            transform: translateY(-6px);
-            box-shadow: 0 16px 48px rgba(201, 169, 110, 0.06);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(201, 169, 110, 0.1), 0 0 0 1px rgba(201, 169, 110, 0.1);
         }
 
         .skill-card:hover::after {
             opacity: 1;
-            box-shadow: 0 0 20px rgba(201, 169, 110, 0.1);
+            box-shadow: 0 0 30px rgba(201, 169, 110, 0.15);
         }
 
         /* Skill dot rotation */
@@ -1171,8 +1175,8 @@
         }
 
         .skill-card:hover .skill-dot {
-            transform: rotate(135deg) scale(1.3);
-            box-shadow: 0 0 12px rgba(201, 169, 110, 0.4);
+            transform: rotate(225deg) scale(1.6);
+            box-shadow: 0 0 18px rgba(201, 169, 110, 0.6);
         }
 
         /* Skill name shimmer */
@@ -2138,7 +2142,6 @@
                         <div className="hero-left">
                             <div className="hero-tag">Senior Android Developer</div>
                             <h1 className="hero-name">이의태</h1>
-                            <p className="hero-name-en">Euytae Lee</p>
                             <p className="hero-role">
                                 12년 이상의 Android 네이티브 개발 경력을 보유한 시니어 개발자입니다.
                                 Clean Architecture 기반 대규모 앱 설계, 금융보안 SDK 통합, 레거시 시스템 현대화를 주도하며
@@ -2182,7 +2185,7 @@
                         <div className="section-header fade-in">
                             <div>
                                 <div className="section-tag">Portfolio</div>
-                                <h2 className="section-title">프로젝트<br/>포트폴리오</h2>
+                                <h2 className="section-title">프로젝트</h2>
                             </div>
                             <p className="section-desc">
                                 핀테크 · 커머스 · 소셜 · 크로스플랫폼 등 다양한 도메인에서 기술적 문제를 해결하고 비즈니스 가치를 만들어낸 프로덕션 프로젝트입니다.
