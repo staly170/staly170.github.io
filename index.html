@@ -710,14 +710,16 @@
                 title: '전표 작성 모듈화 및 마이그레이션 - 이지샵',
                 period: '2024.08 ~ 2024.10',
                 role: 'Backend Developer',
-                description: 'Oracle Procedure 기반 전표 작성 로직을 Java Spring Boot 모듈로 마이그레이션하는 프로젝트입니다. Virtual Thread 및 CompletableFuture 기반 비동기/병렬 처리 구조를 도입하고, AS-IS(Procedure)와 TO-BE(Java)를 이중 실행하여 정합성 검증 테스트를 진행했습니다. 단위 테스트, 데이터 정합성 테스트, 부하 테스트 포함 총 1,026건의 테스트를 수행하여 안정적인 마이그레이션을 완료했습니다.',
+                description: 'Oracle Procedure → Java Spring Boot 전환 프로젝트. Virtual Thread 기반 비동기 처리 도입, 이중 실행 정합성 검증(1,026건), Race Condition 해결, DELETE 쿼리 1,000배 성능 개선까지 수행했습니다.',
                 highlights: [
-                    'Oracle Procedure에서 Java Spring Boot 모듈로 전표 작성 로직 마이그레이션',
-                    'Virtual Thread 및 CompletableFuture 기반 비동기/병렬 처리 구조 도입',
-                    'AS-IS/TO-BE 이중 실행 기반 정합성 검증 테스트 수행 (총 1,026건)',
-                    '부가세 전표 Race Condition으로 인한 PK 중복(ORA-00001) 오류를 SELECT FOR UPDATE 기반 Row Lock 직렬화로 해결',
-                    '임시 전표 대용량 DELETE 쿼리에 복합 인덱스 적용하여 Full Scan을 Index Range Scan으로 개선 (11s → 0.011s, 약 1,000배 성능 향상)',
-                    '단위 테스트, 데이터 정합성 테스트, 부하 테스트를 통한 무결성 검증 완료'
+                    'Oracle Procedure 기반 전표 작성 로직을 Java Spring Boot 모듈로 전환하여 유지보수성과 테스트 커버리지 확보',
+                    'Virtual Thread + CompletableFuture 도입으로 비동기/병렬 처리 구조 구축, 전표 생성 처리 속도 향상',
+                    'AS-IS(Procedure)와 TO-BE(Java)를 동시 실행하는 이중 검증 체계를 설계하여 데이터 정합성 보장',
+                    '단위 테스트 512건 + 데이터 정합성 514건 + 부하 테스트 포함 총 1,026건 테스트로 무결성 검증 완료',
+                    '[문제] 부가세 전표 동시 채번 시 MAX(SEQ_NO)+1 방식에서 Race Condition 발생 → PK 중복 오류(ORA-00001)',
+                    '[해결] SELECT FOR UPDATE를 적용하여 DB 레벨 Row Lock 기반 채번 직렬화로 무결성 오류 근본 해결',
+                    '[문제] 임시 전표 주기적 삭제 쿼리에서 Full Table Scan으로 11초 지연 발생',
+                    '[해결] 복합 인덱스 설계 적용 → Index Range Scan 전환으로 11s → 0.011s 단축 (약 1,000배 성능 개선)'
                 ],
                 tech: ['Java', 'Spring Boot', 'Oracle', 'Virtual Thread', 'CompletableFuture', 'JPA', 'MyBatis', 'SQL Tuning'],
                 achievements: [
@@ -731,14 +733,16 @@
                 title: '연금계좌 변경 스크래핑 서비스 - 이지샵',
                 period: '2024.11 ~ 진행 중',
                 role: 'Backend Developer',
-                description: '스크래핑 기반 국민연금/기초연금 계좌 변경 서비스를 개발 및 유지보수하는 프로젝트입니다. AWS EC2에서 Cafe24 VPS로 인프라를 이전하며 Spring Cloud LoadBalancer를 도입하여 서버 2대에서 4대로 스케일아웃했습니다. 메모리 프로파일링을 통해 Heap 사용량을 90%에서 50%로 최적화하고, 기초연금 Esign 암호화 변경에 대응하여 PBKDF2 기반 인증 로직을 재구현했습니다.',
+                description: '국민연금/기초연금 계좌 변경 스크래핑 서비스 개발. AWS → Cafe24 VPS 이전으로 서버 2배 확장, 메모리 99.8% 최적화(25GB→29MB), Esign 암호화 역분석 및 인증 재구현까지 수행했습니다.',
                 highlights: [
-                    'Spring Cloud LoadBalancer 도입하여 AWS NLB를 애플리케이션 레벨에서 대체',
-                    'AWS EC2(서버 2대) → Cafe24 VPS(서버 4대)로 이전하여 처리 용량 2배 향상 및 IP 차단 시 서버 단위 교체 가능 구조로 개선',
-                    'IntelliJ Profiler + Async-Profiler로 메모리 프로파일링하여 30년치 전체 조회 → 범위 축소, String += 연산을 StringBuilder로 교체',
-                    '누적 객체 할당량(Allocation Size) 약 99.8% 개선 (25GB → 29MB), Heap 평균 사용량 90% → 50% 감소',
-                    '난독화된 JS 코드 분석으로 PBKDF2WithHmacSHA256 기반 hashed 생성 로직 역추적 및 Esign 암호화 재구현',
-                    '복지로 oacx API 4단계 플로우(issue_token → request → result → extractToken) 전체를 신규 인증 방식에 맞게 재구현'
+                    '[인프라 이전] AWS EC2 고정 2대 구조에서 트래픽 증가 시 수평 확장 불가 및 IP 차단 대응 한계 발생',
+                    '[해결] Spring Cloud LoadBalancer 도입으로 AWS NLB를 애플리케이션 레벨에서 대체하고, Cafe24 VPS 4대로 이관하여 서버별 독립 Public IP 확보',
+                    '[성과] 서버 2대 → 4대 확장으로 처리 용량 2배 향상, IP 차단 시 서버 단위 즉시 교체 가능한 구조 확립',
+                    '[메모리 최적화] 운영 중 스크래핑 서버 Heap 사용량 90% 초과로 Grafana 알림 발생',
+                    '[해결] IntelliJ Profiler + Async-Profiler 프로파일링으로 병목 분석 → 1993년부터 30년치 전체 조회 로직을 비즈니스 요구사항 기준 범위 축소, String += 반복을 StringBuilder로 교체',
+                    '[성과] 누적 객체 할당량 99.8% 개선 (25GB → 29MB), Heap 평균 사용량 90% → 50%로 안정화',
+                    '[암호화 대응] 기초연금 간편로그인에 Esign 기반 PBKDF2 암호화가 신규 적용되어 기존 스크래핑 로그인 중단',
+                    '[해결] 난독화된 JS 코드 역분석으로 PBKDF2WithHmacSHA256 hashed 생성 로직 역추적, JSESSIONID 전달 흐름 수정 및 복지로 oacx API 4단계 인증 플로우 전체 재구현'
                 ],
                 tech: ['Java', 'Spring Boot', 'Spring Cloud LoadBalancer', 'Cafe24 VPS', 'AWS EC2', 'Async-Profiler', 'PBKDF2', 'Jsoup'],
                 achievements: [
@@ -752,14 +756,16 @@
                 title: '사내 GitLab AI 코드 리뷰 시스템 - 이지샵',
                 period: '2025.11 ~ 2025.12',
                 role: 'Backend Developer',
-                description: 'Gemini API 기반의 AI 코드 리뷰 시스템을 구현한 프로젝트입니다. Babel과 정규표현식을 통해 JavaScript와 Java 파일의 AST를 분석하고, BFS 기반 의존성 그래프 탐색(max 3 depth, max 20 files)으로 변경 영향도를 파악합니다. 위험성 레벨 단위의 AI 리뷰를 생성하고, GitLab Discussion API로 특정 라인에 인라인 댓글을 작성하여 코드 품질 향상과 리뷰 시간 단축을 달성했습니다.',
+                description: 'Gemini API 기반 AI 코드 리뷰 자동화 시스템. AST 파싱 → BFS 의존성 그래프 탐색 → 위험도별 리뷰 생성 → GitLab 인라인 댓글까지 MR 트리거로 전 과정을 자동화했습니다.',
                 highlights: [
-                    'Gemini API 기반 AI 코드 리뷰 시스템 설계 및 구현',
-                    'Babel과 정규표현식을 통한 JavaScript/Java 파일 AST 분석',
-                    'BFS 기반 의존성 그래프 탐색 구현 (max 3 depth, max 20 files)',
-                    '의존성 그래프 기반 위험성 레벨 단위 AI 리뷰 생성',
-                    'GitLab Discussion API를 활용한 특정 라인 인라인 댓글 작성',
-                    '코드 품질 향상, 리뷰 시간 단축, 숨겨진 버그 조기 발견'
+                    'MR(Merge Request) 이벤트를 트리거로 Gemini API 기반 AI 코드 리뷰를 자동 실행하는 시스템 설계 및 구현',
+                    'Babel과 정규표현식을 활용하여 JavaScript/Java 파일의 AST(추상 구문 트리)를 파싱하고 코드 구조를 정적 분석',
+                    'BFS 알고리즘 기반 의존성 그래프 탐색으로 변경 파일의 영향 범위를 자동 추적 (max 3 depth, max 20 files)',
+                    '의존성 그래프 완성 후 위험성 레벨(HIGH/MEDIUM/LOW) 단위로 분류된 AI 리뷰를 자동 생성',
+                    'GitLab Discussion API를 연동하여 코드 변경 라인에 직접 인라인 댓글을 작성, 리뷰어가 즉시 맥락 파악 가능',
+                    '기존 수동 리뷰에서 놓치기 쉬운 NullPointer 위험, N+1 쿼리, 네이밍 컨벤션 등 숨겨진 버그를 조기 발견',
+                    '개발팀 코드 리뷰 소요 시간 단축 및 MR 병합 전 코드 품질 게이트 역할 수행',
+                    '리뷰 결과를 위험도별 요약 리포트로 자동 생성하여 프로젝트 코드 품질 추이 가시화'
                 ],
                 tech: ['Gemini API', 'Babel', 'AST', 'BFS', 'GitLab API', 'JavaScript', 'Java', 'Node.js'],
                 achievements: [
@@ -773,14 +779,16 @@
                 title: 'CI/CD 파이프라인 & 모니터링 구축 - 이지샵',
                 period: '2024.07 ~ 재직 중',
                 role: 'Backend Developer / DevOps',
-                description: '사내 서비스의 CI/CD 파이프라인을 설계하고 개발한 프로젝트입니다. GitLab CI/CD와 Jenkins를 활용하여 빌드-테스트-배포 자동화 파이프라인을 구축하고, Prometheus + Grafana 기반의 서비스 모니터링 환경을 구축하여 운영하고 있습니다. Loki와 Promtail을 연동한 중앙 집중식 로그 관리 체계도 함께 구축하여 장애 대응 시간을 단축했습니다.',
+                description: 'GitLab CI/CD + Jenkins 기반 빌드→테스트→배포 자동화 파이프라인 구축. Prometheus + Grafana 실시간 모니터링, Loki 중앙 로그 수집까지 DevOps 인프라 전반을 설계하고 운영하고 있습니다.',
                 highlights: [
-                    'GitLab CI/CD 기반 빌드-테스트-배포 자동화 파이프라인 설계 및 구축',
-                    'Jenkins를 활용한 추가 배포 파이프라인 구성 및 운영',
-                    'Docker 기반 컨테이너화로 일관된 배포 환경 구성',
-                    'Prometheus + Grafana 기반 서비스 메트릭 모니터링 대시보드 구축',
-                    'Loki + Promtail 기반 중앙 집중식 로그 수집 및 분석 환경 구축',
-                    '실시간 알림 설정을 통한 장애 감지 및 대응 시간 단축'
+                    'GitLab CI/CD 기반 빌드 → 테스트 → Docker 이미지 빌드 → 배포까지 4단계 자동화 파이프라인 설계 및 구축',
+                    'Jenkins를 활용한 레거시 서비스 배포 파이프라인을 추가 구성하여 신규/기존 서비스 모두 자동 배포 체계 확립',
+                    'Docker 기반 컨테이너화로 개발/스테이징/운영 환경 간 일관성 확보, 배포 롤백 시간 최소화',
+                    'Prometheus + Grafana 기반 서비스 메트릭 모니터링 대시보드 구축 (CPU, Memory, Heap, API Latency, Uptime 등)',
+                    'Loki + Promtail 연동으로 전 서비스 로그를 중앙 수집하여 Grafana에서 통합 검색 및 분석 가능한 환경 구축',
+                    'Grafana Alert 기반 실시간 알림 체계 구성 (Heap 90% 초과, API 응답 지연, 서버 다운 등 임계치별 알림)',
+                    '장애 발생 시 로그 → 메트릭 → 배포 이력을 한 곳에서 추적 가능하여 원인 분석 및 대응 시간 대폭 단축',
+                    '파이프라인 설계 경험을 기반으로 사내 AI 코드 리뷰 시스템의 MR 트리거 자동화에도 활용'
                 ],
                 tech: ['GitLab CI/CD', 'Jenkins', 'Docker', 'Prometheus', 'Grafana', 'Loki', 'Promtail', 'Linux'],
                 achievements: [
