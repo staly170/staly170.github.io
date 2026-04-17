@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="49c6186e-3eef-4c79-8e86-393db3a0b8bf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/staly170_portpolio.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNAME" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/citame_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/citame_splash_dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/contact_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/easyshop_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/easyshop_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/easyshop_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/easyshop_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/easyshop_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/easyshop_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/easyshop_splash_dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/isswa_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/isswa_splash_dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/matchkorea_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/matchkorea_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/matchkorea_splash_dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/missionx_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_balance.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_account.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_charge.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_mypage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_noti.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_onboard1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_onboard2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_onboard3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_payment.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_point.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_splash2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_figma_transfer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_fontlogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_fulllogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_light.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/nestpay_splash_dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/onaju_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/petme_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/samanda_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/samanda_splash_dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/shopowner_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/shopowner_splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/shopowner_splash_dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wanpan_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wherego_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;staly170&quot;
+  }
+}</component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1776227458" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="master" />
+                    <option name="lastUsedInstant" value="1776227457" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/staly170/staly170.github.io.git&quot;,
+    &quot;accountId&quot;: &quot;78058efc-847c-406c-b1c6-1bd1ba1c91c7&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="3CLTtOfOSQqtuHk4pIs7N3mktn7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "show.migrate.to.gradle.popup": "false"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="49c6186e-3eef-4c79-8e86-393db3a0b8bf" name="Changes" comment="" />
+      <created>1776164064505</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1776164064505</updated>
+    </task>
+    <servers />
+  </component>
+</project>

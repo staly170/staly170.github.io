@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-dark: #0a0a10;
+  --color-dark-2: #100f18;
+  --color-dark-3: #1a1824;
+  --color-dark-card: #0d0c14;
+  --color-accent: #0d9488;
+  --color-accent-dim: rgba(13, 148, 136, 0.1);
+  --color-accent-hover: #0f766e;
+  --color-accent-2: #14b8a6;
+  --color-text: #e8e7ef;
+  --color-text-2: #b5b3c8;
+  --color-text-3: #7a7890;
+  --color-white: #f0eff5;
+  --color-border: rgba(139,92,246,0.06);
+  --font-sans: var(--font-opensans, "Open Sans"), sans-serif;
+  --font-heading: var(--font-opensans, "Open Sans"), sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-dark);
+  color: var(--color-text);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-dark);
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-dark); }
+::-webkit-scrollbar-thumb { background: var(--color-dark-3); border-radius: 3px; }
