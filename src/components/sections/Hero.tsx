@@ -5,8 +5,9 @@ import { stats } from "@/data/stats";
 export default function Hero() {
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
-      <div className="absolute inset-0 bg-[#030c18]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(13,148,136,0.1),transparent_70%)]" />
+      <div className="absolute inset-0 bg-[#080d10]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(52,211,153,0.07),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgba(52,211,153,0.05),transparent_45%)]" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
       <ParticleBackground />
 
@@ -17,7 +18,7 @@ export default function Hero() {
             모바일 아키텍트 · 시니어 개발자
           </p>
           <h1 className="text-white text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-3 uppercase animate-[fadeInUp_0.8s_ease_0.4s_both]">
-            <TypeWriter words={["ANDROID", "IOS", "FLUTTER"]} className="text-accent" />
+            <TypeWriter words={["ANDROID", "iOS", "FLUTTER"]} className="text-accent" />
           </h1>
           <h1 className="text-white/80 text-xl md:text-2xl font-bold mb-0 animate-[fadeInUp_0.8s_ease_0.6s_both]">
             안녕하세요,
@@ -26,10 +27,10 @@ export default function Hero() {
             모바일 개발자 이의태입니다.
           </h1>
           <p className="text-text-2 text-base leading-relaxed max-w-[440px] mb-0 animate-[fadeInUp_0.8s_ease_0.8s_both]">
-            모바일 앱 아이디어를 현실로
+            12년간 핀테크·커머스·소셜 등 다양한 도메인에서
           </p>
           <p className="text-text-2 text-base leading-relaxed max-w-[440px] mb-10 animate-[fadeInUp_0.8s_ease_0.8s_both]">
-            다양한 도메인 경험으로 사용자 중심의 앱을 제공하겠습니다.
+            설계부터 출시·운영까지 직접 해온 모바일 개발자입니다.
           </p>
           <div className="flex gap-4 animate-[fadeInUp_0.8s_ease_1s_both]">
             <a href="#works" className="group relative inline-flex items-center gap-3 px-8 py-3.5 text-sm font-medium tracking-wider text-accent border border-accent/30 rounded-lg overflow-hidden hover:text-white transition-colors duration-300">

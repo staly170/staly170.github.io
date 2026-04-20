@@ -15,7 +15,7 @@ function ContactCard({ href, target, label, value, icon }: ContactCardProps) {
         {icon}
       </div>
       <p className="text-accent text-xs uppercase tracking-wider mb-2">{label}</p>
-      <p className="text-text text-sm font-medium group-hover:text-accent transition-colors break-all">{value}</p>
+      <p className="text-text text-sm font-medium group-hover:text-accent transition-colors whitespace-nowrap">{value}</p>
     </a>
   );
 }
@@ -33,17 +33,12 @@ const githubIcon = (
   </svg>
 );
 
-const phoneIcon = (
-  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-text-3 group-hover:text-accent transition-colors">
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-  </svg>
-);
 
 export default function Contact() {
   return (
     <section id="contact" className="py-28 md:py-36 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-dark-2/50 via-dark to-dark-2/50" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.06),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(52,211,153,0.05),transparent_60%)]" />
       <div className="relative max-w-[1200px] mx-auto px-8">
         <Reveal>
           <div className="grid md:grid-cols-[1fr_1fr] gap-16 items-start">
@@ -59,10 +54,9 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <ContactCard href="mailto:dmlxo62@naver.com" label="Email" value="dmlxo62@naver.com" icon={mailIcon} />
               <ContactCard href="https://github.com/staly170" target="_blank" label="GitHub" value="github.com/staly170" icon={githubIcon} />
-              <ContactCard href="tel:010-8420-5019" label="Phone" value="010-8420-5019" icon={phoneIcon} />
             </div>
           </div>
         </Reveal>

@@ -7,6 +7,7 @@ import About from "@/components/sections/About";
 import Skills from "@/components/sections/Skills";
 import Expertise from "@/components/sections/Expertise";
 import Works from "@/components/sections/Works";
+import Startup from "@/components/sections/Startup";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
@@ -21,6 +22,7 @@ export default function Home() {
       <Skills />
       <Expertise />
       <Works onSelect={setSelectedProject} />
+      <Startup onSelect={setSelectedProject} />
       <Contact />
       <Footer />
     </main>

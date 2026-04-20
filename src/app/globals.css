@@ -1,19 +1,21 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-dark: #0a0a10;
-  --color-dark-2: #100f18;
-  --color-dark-3: #1a1824;
-  --color-dark-card: #0d0c14;
-  --color-accent: #0d9488;
-  --color-accent-dim: rgba(13, 148, 136, 0.1);
-  --color-accent-hover: #0f766e;
-  --color-accent-2: #14b8a6;
-  --color-text: #e8e7ef;
-  --color-text-2: #b5b3c8;
-  --color-text-3: #7a7890;
-  --color-white: #f0eff5;
-  --color-border: rgba(139,92,246,0.06);
+  --color-dark: #0a0f12;
+  --color-dark-2: #0e1418;
+  --color-dark-3: #182024;
+  --color-dark-card: rgba(255,255,255,0.03);
+  --color-accent: #34d399;
+  --color-accent-dim: rgba(52,211,153,0.06);
+  --color-accent-hover: #10b981;
+  --color-accent-2: #6ee7b7;
+  --color-text: #d8e8e0;
+  --color-text-2: #7a9088;
+  --color-text-3: #4a6058;
+  --color-white: #e8f4ee;
+  --color-border: rgba(52,211,153,0.10);
+  --glow: 0 0 20px rgba(52,211,153,0.15);
+  --glow-strong: 0 0 40px rgba(52,211,153,0.2);
   --font-sans: var(--font-opensans, "Open Sans"), sans-serif;
   --font-heading: var(--font-opensans, "Open Sans"), sans-serif;
 }
@@ -31,6 +33,21 @@ body {
   color: var(--color-dark);
 }
 
+/* Glow utilities */
+.glow-border {
+  border-color: rgba(52,211,153,0.15);
+  box-shadow: 0 0 0 1px rgba(52,211,153,0.05), var(--glow);
+}
+
+.glow-border:hover {
+  border-color: rgba(52,211,153,0.25);
+  box-shadow: 0 0 0 1px rgba(52,211,153,0.1), var(--glow-strong);
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(52,211,153,0.4);
+}
+
 @keyframes fadeInDown {
   from { opacity: 0; transform: translateY(-30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -44,6 +61,11 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes modalIn {

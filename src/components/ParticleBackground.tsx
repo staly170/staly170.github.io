@@ -78,7 +78,7 @@ export default function ParticleBackground() {
           ctx!.beginPath();
           ctx!.moveTo(a.x, a.y);
           ctx!.lineTo(mouseX, mouseY);
-          ctx!.strokeStyle = `rgba(94, 234, 212, ${opacity})`;
+          ctx!.strokeStyle = `rgba(52, 211, 153, ${opacity})`;
           ctx!.lineWidth = 1;
           ctx!.stroke();
         }
@@ -95,7 +95,7 @@ export default function ParticleBackground() {
             ctx!.beginPath();
             ctx!.moveTo(a.x, a.y);
             ctx!.lineTo(b.x, b.y);
-            ctx!.strokeStyle = `rgba(20, 184, 166, ${opacity})`;
+            ctx!.strokeStyle = `rgba(52, 211, 153, ${opacity})`;
             ctx!.lineWidth = 0.6;
             ctx!.stroke();
           }
@@ -108,21 +108,21 @@ export default function ParticleBackground() {
 
         ctx!.beginPath();
         ctx!.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(94, 234, 212, ${twinkle * 0.75})`;
+        ctx!.fillStyle = `rgba(52, 211, 153, ${twinkle * 0.75})`;
         ctx!.fill();
 
         if (n.r > 1.2) {
           ctx!.beginPath();
           ctx!.arc(n.x, n.y, n.r * 2.5, 0, Math.PI * 2);
-          ctx!.fillStyle = `rgba(20, 184, 166, ${twinkle * 0.08})`;
+          ctx!.fillStyle = `rgba(52, 211, 153, ${twinkle * 0.08})`;
           ctx!.fill();
         }
       }
 
       // Mouse cursor glow
       const mouseGrad = ctx!.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 40);
-      mouseGrad.addColorStop(0, "rgba(94, 234, 212, 0.15)");
-      mouseGrad.addColorStop(1, "rgba(20, 184, 166, 0)");
+      mouseGrad.addColorStop(0, "rgba(52, 211, 153, 0.15)");
+      mouseGrad.addColorStop(1, "rgba(52, 211, 153, 0)");
       ctx!.fillStyle = mouseGrad;
       ctx!.fillRect(mouseX - 40, mouseY - 40, 80, 80);
 

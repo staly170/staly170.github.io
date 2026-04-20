@@ -16,6 +16,7 @@ const CATEGORY_KO: Record<string, string> = {
   Social: "소셜 · 매칭",
   SNS: "소셜 · 매칭",
   Reward: "리워드 광고",
+  Side: "코인주식 관리",
 };
 
 function WorkCategory({ title, items, onSelect, withBottomMargin }: { title: string; items: ProjectData[]; onSelect: (p: ProjectData) => void; withBottomMargin?: boolean }) {
@@ -47,15 +48,17 @@ function WorkCategory({ title, items, onSelect, withBottomMargin }: { title: str
 }
 
 export default function Works({ onSelect }: WorksProps) {
-  const android = projects.filter((p) => p.cat !== "Flutter");
+  const android = projects.filter((p) => !["Flutter", "Side"].includes(p.cat));
   const flutter = projects.filter((p) => p.cat === "Flutter");
+  const side = projects.filter((p) => p.cat === "Side");
 
   return (
     <section id="works" className="py-28 md:py-36">
       <div className="max-w-[1200px] mx-auto px-8">
         <SectionHeader tag="Portfolio" title="프로젝트" />
         <WorkCategory title="Android" items={android} onSelect={onSelect} withBottomMargin />
-        <WorkCategory title="Flutter" items={flutter} onSelect={onSelect} />
+        <WorkCategory title="Flutter" items={flutter} onSelect={onSelect} withBottomMargin />
+        <WorkCategory title="Side Project" items={side} onSelect={onSelect} />
       </div>
     </section>
   );
