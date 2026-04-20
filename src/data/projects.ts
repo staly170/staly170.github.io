@@ -18,7 +18,7 @@ export const projects: ProjectData[] = [
       "Fastlane 배포 자동화 — 수작업 배포를 커맨드 한 줄로 단축, 휴먼 에러 제거",
       "KB국민은행·신한은행 앱 모듈 연동 + 홈택스 전자세금계산서 WebView 인증서 서명",
       "WiseTracker 사용자 분석 연동 — 데이터 기반 기능 개선 의사결정에 활용",
-      "개발/스테이징/운영 3단계 환경 자동 분리 → 배포 사고 제로",
+      "개발/운영 2단계 환경 자동 분리 → 배포 사고 제로",
     ],
     tags: ["Kotlin", "Dart", "Flutter", "MVVM", "Dagger Hilt", "Coroutines Flow", "Retrofit2", "OkHttp3", "Firebase", "Fastlane"],
     screenshots: ["/images/easyshop_1.png", "/images/easyshop_2.png", "/images/easyshop_3.png", "/images/easyshop_4.png", "/images/easyshop_5.png"],
