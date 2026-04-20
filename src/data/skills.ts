@@ -54,7 +54,7 @@ export const skillGroups: SkillGroup[] = [
     items: [
       { name: "Firebase", level: 85 },
       { name: "Git", level: 85 },
-      { name: "CI/CD", level: 75 },
+      { name: "Fastlane", level: 75 },
       { name: "Figma", level: 80 },
     ],
   },
